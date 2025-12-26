@@ -1,0 +1,24 @@
+{
+  "name": "CSP Lens",
+  "description": "View sorted CSP Entries",
+  "version": "1.0",
+  "manifest_version": 3,
+  "side_panel": {
+    "default_path": "side_panel.html"
+  },
+  "action": {
+    "default_title": "Click to open CSP Lens side panel"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "scripting",
+    "webRequest",
+    "webNavigation",
+    "sidePanel"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
