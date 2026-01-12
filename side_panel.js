@@ -10,25 +10,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     const directiveList = document.createElement("div");
     directiveList.classList.add("directives");
 
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
+
     const openAllButton = document.createElement("button");
-    openAllButton.textContent = "Open All";
+    openAllButton.textContent = "Expand All";
+    openAllButton.classList.add("btn-link");
     openAllButton.addEventListener("click", () => {
       const detailsElements = directiveList.querySelectorAll("details");
       detailsElements.forEach((details) => {
         details.setAttribute("open", "");
       });
     });
-    directiveList.appendChild(openAllButton);
+    buttonContainer.appendChild(openAllButton);
 
     const closeAllButton = document.createElement("button");
-    closeAllButton.textContent = "Close All";
+    closeAllButton.textContent = "Collapse All";
+    closeAllButton.classList.add("btn-link");
     closeAllButton.addEventListener("click", () => {
       const detailsElements = directiveList.querySelectorAll("details");
       detailsElements.forEach((details) => {
         details.removeAttribute("open");
       });
     });
-    directiveList.appendChild(closeAllButton);
+    buttonContainer.appendChild(closeAllButton);
+
+    directiveList.appendChild(buttonContainer);
 
     directives.forEach((directive, i) => {
       const details = document.createElement("details");
