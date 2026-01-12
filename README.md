@@ -1,3 +1,3 @@
 # CSP Lens
 
-<img width="1525" height="1436" alt="image" src="https://github.com/user-attachments/assets/24a0fe0b-0770-4a7c-b57f-8d0504e857ed" />
+<img width="1509" height="958" alt="image" src="https://github.com/user-attachments/assets/d5810613-1718-4a4e-91b7-74f0da3a6271" />
