@@ -11,10 +11,7 @@
   },
   "permissions": [
     "tabs",
-    "activeTab",
-    "scripting",
     "webRequest",
-    "webNavigation",
     "sidePanel"
   ],
   "host_permissions": ["<all_urls>"],
