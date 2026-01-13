@@ -1,5 +1,4 @@
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  //console.log("Message received in side panel:", request, request.payload);
   if (request.type === "DATA_FROM_BACKGROUND") {
     const directives = request.payload;
 
