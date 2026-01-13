@@ -1,28 +1,7 @@
 const cspCache = {};
-const isSidePanelAvailable = typeof chrome.sidePanel !== "undefined";
-let openSidePanelCount = 0;
-
-function shouldRunBackgroundHandlers() {
-  return isSidePanelAvailable && openSidePanelCount > 0;
-}
-
-chrome.runtime.onConnect.addListener((port) => {
-  if (port.name !== "side-panel") {
-    return;
-  }
-
-  openSidePanelCount += 1;
-
-  port.onDisconnect.addListener(() => {
-    openSidePanelCount = Math.max(0, openSidePanelCount - 1);
-  });
-});
 
 chrome.webRequest.onHeadersReceived.addListener(
   (details) => {
-    if (!shouldRunBackgroundHandlers()) {
-      return;
-    }
     const cspEntries = [];
     if (details.type !== "main_frame") {
       return;
@@ -74,9 +53,6 @@ chrome.webRequest.onHeadersReceived.addListener(
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   //console.log("///////////////");
   if (message.action === "contentScriptLoaded") {
-    if (!shouldRunBackgroundHandlers()) {
-      return;
-    }
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
         action: "dataFromBackground",
@@ -101,8 +77,6 @@ chrome.tabs.onRemoved.addListener((tabId) => {
   delete cspCache[tabId];
 });
 
-if (isSidePanelAvailable) {
-  chrome.sidePanel
-    .setPanelBehavior({ openPanelOnActionClick: true })
-    .catch((error) => console.error(error));
-}
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
