@@ -31,8 +31,8 @@ chrome.webRequest.onHeadersReceived.addListener(
 
       //console.log("CSP for:", cspEntries);
       const cspData = {
-          directives: cspEntries,
-          url: details.url
+        directives: cspEntries,
+        url: details.url,
       };
       cspCache[details.tabId] = cspData;
 
@@ -41,7 +41,7 @@ chrome.webRequest.onHeadersReceived.addListener(
         payload: cspData,
       });
     } else {
-        delete cspCache[details.tabId];
+      delete cspCache[details.tabId];
     }
     /*
      */
@@ -60,21 +60,21 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       });
     });
   } else if (message.type === "GET_CURRENT_TAB_CSP") {
-      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-          if (tabs.length === 0) {
-              sendResponse({ payload: null });
-              return;
-          }
-          const tabId = tabs[0].id;
-          const data = cspCache[tabId];
-          sendResponse({ payload: data });
-      });
-      return true; // Keep channel open for async response
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs.length === 0) {
+        sendResponse({ payload: null });
+        return;
+      }
+      const tabId = tabs[0].id;
+      const data = cspCache[tabId];
+      sendResponse({ payload: data });
+    });
+    return true; // Keep channel open for async response
   }
 });
 
 chrome.tabs.onRemoved.addListener((tabId) => {
-    delete cspCache[tabId];
+  delete cspCache[tabId];
 });
 
 chrome.sidePanel
