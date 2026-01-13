@@ -1,14 +1,34 @@
+/* Light mode (default) */
 :root {
-  --bg-color: #202124;
-  --surface-color: #292a2d;
-  --text-primary: #e8eaed;
-  --text-secondary: #9aa0a6;
-  --accent-color: #8ab4f8;
-  --border-color: #3c4043;
-  --hover-color: #35363a;
-  --badge-bg: #3c4043;
-  --badge-text: #e8eaed;
+  --bg-color: #ffffff;
+  --surface-color: #f8f9fa;
+  --text-primary: #202124;
+  --text-secondary: #5f6368;
+  --accent-color: #1a73e8;
+  --border-color: #dadce0;
+  --hover-color: #f1f3f4;
+  --badge-bg: #e8eaed;
+  --badge-text: #202124;
+  --list-bg: rgba(0, 0, 0, 0.02);
+  --list-hover-bg: rgba(0, 0, 0, 0.04);
   --code-font: "Consolas", "Monaco", "Courier New", monospace;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-color: #202124;
+    --surface-color: #292a2d;
+    --text-primary: #e8eaed;
+    --text-secondary: #9aa0a6;
+    --accent-color: #8ab4f8;
+    --border-color: #3c4043;
+    --hover-color: #35363a;
+    --badge-bg: #3c4043;
+    --badge-text: #e8eaed;
+    --list-bg: rgba(255, 255, 255, 0.03);
+    --list-hover-bg: rgba(255, 255, 255, 0.05);
+  }
 }
 
 body {
@@ -112,7 +132,7 @@ summary span {
   font-size: 11px;
   font-weight: 600;
   min-width: 16px;
-  text-align: center;
+  text-align: left;
 }
 
 /* List Container */
@@ -120,7 +140,7 @@ ol {
   margin: 0;
   padding: 0;
   list-style: none;
-  background-color: rgba(255, 255, 255, 0.03);
+  background-color: var(--list-bg);
 }
 
 /* List Items */
@@ -134,5 +154,5 @@ li {
 
 li:hover {
   color: var(--text-primary);
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--list-hover-bg);
 }
