@@ -5,7 +5,7 @@ function renderCSP(data) {
   const directives = data ? data.directives : null;
   const url = data ? data.url : null;
 
-  if (!directives || directives.length === 0) {
+  if (!data) {
     const msg = document.createElement("div");
     msg.classList.add("no-csp-message");
     msg.textContent = "Navigate to or reload website";
@@ -13,11 +13,25 @@ function renderCSP(data) {
     return;
   }
 
-  if (url) {
+  if (!directives || directives.length === 0) {
+    if (url) {
       const urlDiv = document.createElement("div");
       urlDiv.classList.add("page-url");
       urlDiv.textContent = url;
       container.appendChild(urlDiv);
+    }
+    const msg = document.createElement("div");
+    msg.classList.add("no-csp-message");
+    msg.textContent = "No Content Security Policy found";
+    container.appendChild(msg);
+    return;
+  }
+
+  if (url) {
+    const urlDiv = document.createElement("div");
+    urlDiv.classList.add("page-url");
+    urlDiv.textContent = url;
+    container.appendChild(urlDiv);
   }
 
   const directiveList = document.createElement("div");
@@ -83,6 +97,8 @@ function renderCSP(data) {
   container.appendChild(directiveList);
   window.scrollTo(0, 0);
 }
+
+const sidePanelPort = chrome.runtime.connect({ name: "side-panel" });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "DATA_FROM_BACKGROUND") {
