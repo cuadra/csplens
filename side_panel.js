@@ -66,9 +66,9 @@ function renderCSP(data) {
 
   directives.forEach((directive, i) => {
     const details = document.createElement("details");
-    details.setAttribute("open", "");
+    //details.setAttribute("open", "");
     const typeItem = document.createElement("summary");
-    
+
     const typeText = document.createElement("span");
     typeText.classList.add("directive-type");
     typeText.textContent = `${i + 1}. ${directive.type}`;

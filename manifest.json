@@ -3,17 +3,19 @@
   "description": "View sorted CSP Entries",
   "version": "1.0",
   "manifest_version": 3,
+  "icons": {
+    "16": "icon-16.png",
+    "32": "icon-32.png",
+    "48": "icon-48.png",
+    "128": "icon-128.png"
+  },
   "side_panel": {
     "default_path": "side_panel.html"
   },
   "action": {
     "default_title": "Click to open CSP Lens side panel"
   },
-  "permissions": [
-    "tabs",
-    "webRequest",
-    "sidePanel"
-  ],
+  "permissions": ["tabs", "webRequest", "sidePanel"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
