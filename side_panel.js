@@ -8,21 +8,7 @@ function renderCSP(data) {
   if (!data) {
     const msg = document.createElement("div");
     msg.classList.add("no-csp-message");
-    msg.textContent = "Navigate to or reload website";
-    container.appendChild(msg);
-    return;
-  }
-
-  if (!directives || directives.length === 0) {
-    if (url) {
-      const urlDiv = document.createElement("div");
-      urlDiv.classList.add("page-url");
-      urlDiv.textContent = url;
-      container.appendChild(urlDiv);
-    }
-    const msg = document.createElement("div");
-    msg.classList.add("no-csp-message");
-    msg.textContent = "No Content Security Policy found";
+    msg.textContent = "No Content Security Policy (CSP) found. Reload page.";
     container.appendChild(msg);
     return;
   }
