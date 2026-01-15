@@ -43,6 +43,12 @@ body {
   line-height: 1.5;
 }
 
+input {
+  padding-left: 13px;
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+}
 /* Button Container */
 .button-container {
   display: flex;

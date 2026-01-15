@@ -20,6 +20,15 @@ function renderCSP(data) {
     container.appendChild(urlDiv);
   }
 
+  const searchFieldLabel = document.createElement("label");
+  const searchField = document.createElement("input");
+  searchField.type = "text";
+  searchField.placeholder = "Search directives...";
+
+  searchFieldLabel.appendChild(searchField);
+
+  container.appendChild(searchFieldLabel);
+
   const directiveList = document.createElement("div");
   directiveList.classList.add("directives");
 
