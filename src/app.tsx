@@ -239,6 +239,16 @@ console.log(
   window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches,
 );
+const inputHandler = (e: Event) => {
+  const target = e.target as HTMLInputElement;
+  setFilter(target.value);
+};
+const resetHandler = (e: Event) => {
+  e.preventDefault();
+  setFilter("");
+};
+const [filter, setFilter] = createSignal("");
+
 export function App() {
   return (
     <main>
@@ -257,8 +267,10 @@ export function App() {
               class={darkTheme}
               type="text"
               placeholder="Filter entries..."
+              onInput={inputHandler}
+              value={filter()}
             />
-            <ClearButton>
+            <ClearButton onClick={resetHandler}>
               <AiOutlineClose />
             </ClearButton>
           </FormLabel>
@@ -276,7 +288,7 @@ export function App() {
               </SummaryLabel>
               <Count>{entry.entries.length}</Count>
             </Summary>
-            <For each={entry.entries}>
+            <For each={entry.entries.filter((l) => l.includes(filter()))}>
               {(item) => (
                 <Items>
                   <Item>
