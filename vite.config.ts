@@ -4,4 +4,7 @@ import { macaronVitePlugin } from "@macaron-css/vite";
 
 export default defineConfig({
   plugins: [macaronVitePlugin(), solid()],
+  build: {
+    outDir: "test",
+  },
 });

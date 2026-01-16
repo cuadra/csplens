@@ -1,4 +1,4 @@
-const cspCache = {};
+//const cspCache = {};
 
 chrome.webRequest.onHeadersReceived.addListener(
   (details) => {
@@ -34,14 +34,14 @@ chrome.webRequest.onHeadersReceived.addListener(
         directives: cspEntries,
         url: details.url,
       };
-      cspCache[details.tabId] = cspData;
+      //cspCache[details.tabId] = cspData;
 
       chrome.runtime.sendMessage({
         type: "DATA_FROM_BACKGROUND",
         payload: cspData,
       });
     } else {
-      delete cspCache[details.tabId];
+      //delete cspCache[details.tabId];
     }
     /*
      */
@@ -50,6 +50,7 @@ chrome.webRequest.onHeadersReceived.addListener(
   ["responseHeaders"],
 );
 
+/*
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   //console.log("///////////////");
   if (message.action === "contentScriptLoaded") {
@@ -76,7 +77,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 chrome.tabs.onRemoved.addListener((tabId) => {
   delete cspCache[tabId];
 });
-
+*/
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
   .catch((error) => console.error(error));

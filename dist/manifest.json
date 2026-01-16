@@ -10,7 +10,7 @@
     "128": "icon-128.png"
   },
   "side_panel": {
-    "default_path": "side_panel.html"
+    "default_path": "index.html"
   },
   "action": {
     "default_title": "Click to open CSP Lens side panel"
