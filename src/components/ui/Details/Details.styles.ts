@@ -18,6 +18,8 @@ const ItemStyled = styled("li", {
     color: themeContract.colors.color.quatenary,
     display: "flex",
     alignItems: "center",
+    overflowWrap: "break-word",
+    wordBreak: "break-all",
     selectors: {
       "&:nth-child(odd)": {},
       "&:nth-child(even)": {

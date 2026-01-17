@@ -67,10 +67,9 @@ export const App: Component = () => {
           </For>
         </>
       )}
-      {status() !== "not_found" ||
-        (status() !== "" && (
-          <BackToTop theme={isDark() ? darkTheme : lightTheme} />
-        ))}
+      {status() !== "not_found" && status() !== "" && (
+        <BackToTop theme={isDark() ? darkTheme : lightTheme} />
+      )}
     </main>
   );
 };
