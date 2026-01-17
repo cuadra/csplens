@@ -12,7 +12,7 @@ const MessageStyled = styled("div", {
 const H2Styled = styled("h2", {
   base: {
     textAlign: "center",
-    color: "rgba(255, 255, 255, 0.1)",
+    color: themeContract.colors.color.primary,
     fontFamily: themeContract.fonts.families.primary,
     fontSize: themeContract.fonts.sizes.xlarge,
     display: "flex",

@@ -11,12 +11,14 @@ import {
 } from "./Inputs.styles";
 interface IInputs {
   filter: string;
-  theme: string;
+  isDark: () => boolean;
   setDetailsOpen: (value: boolean) => void;
   setFilter: (value: string) => void;
 }
+import { darkTheme } from "../../../styles/themes/dark";
+import { lightTheme } from "../../../styles/themes/light";
 export const Inputs: Component<IInputs> = (props) => {
-  const { filter, setFilter, setDetailsOpen, theme } = props;
+  const { filter, setFilter, setDetailsOpen, isDark } = props;
 
   let inputRef!: HTMLInputElement;
 
@@ -39,15 +41,14 @@ export const Inputs: Component<IInputs> = (props) => {
     }
   };
   return (
-    <InputsStyled>
-      <MenuStyled class={theme}>
+    <InputsStyled class={isDark() ? darkTheme : lightTheme}>
+      <MenuStyled>
         <ButtonStyled onClick={openDetails}>Expand All</ButtonStyled>
         <ButtonStyled onClick={closeDetails}>Collapse All</ButtonStyled>
       </MenuStyled>
       <FormStyled>
         <FormLabelStyled>
           <InputStyled
-            class={theme}
             type="text"
             placeholder="Filter entries..."
             onInput={inputHandler}

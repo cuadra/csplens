@@ -6,5 +6,5 @@ export interface IDetails {
   index: number;
   filter: () => string;
   detailsOpen: () => boolean;
-  theme: string;
+  isDark: () => boolean;
 }

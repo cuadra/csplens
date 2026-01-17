@@ -12,10 +12,15 @@ import {
 
 import { OcDotfill2 } from "solid-icons/oc";
 
+import { darkTheme } from "../../../styles/themes/dark";
+import { lightTheme } from "../../../styles/themes/light";
 export const Details: Component<IDetails> = (props) => {
-  const { directive, index, filter, detailsOpen, theme } = props;
+  const { directive, index, filter, detailsOpen, isDark } = props;
   return (
-    <DetailsStyled class={theme} open={detailsOpen()}>
+    <DetailsStyled
+      class={isDark() ? darkTheme : lightTheme}
+      open={detailsOpen()}
+    >
       <SummaryStyled>
         <SummaryLabelStyled>
           {index + 1}. {directive.type}

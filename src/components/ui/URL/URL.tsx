@@ -1,12 +1,16 @@
 import { createSignal, createEffect, For, Component } from "solid-js";
 import { URLStyles } from "./URL.styles";
 
+import { darkTheme } from "../../../styles/themes/dark";
+import { lightTheme } from "../../../styles/themes/light";
 interface IURL {
   address: () => string;
-  theme: string;
+  isDark: () => boolean;
 }
 
 export const U: Component<IURL> = (props) => {
-  const { address, theme } = props;
-  return <URLStyles class={theme}>{address()}</URLStyles>;
+  const { address, isDark } = props;
+  return (
+    <URLStyles class={isDark() ? darkTheme : lightTheme}>{address()}</URLStyles>
+  );
 };

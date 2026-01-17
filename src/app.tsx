@@ -1,5 +1,9 @@
-import { createSignal, createEffect, For, Component } from "solid-js";
-import { globalStyle } from "@macaron-css/core";
+import { createSignal, createEffect, For, Component, onMount } from "solid-js";
+import {
+  globalStyle,
+  createThemeContract,
+  createTheme,
+} from "@macaron-css/core";
 import { Message } from "./components/layouts/Message/Message";
 import { BackToTop } from "./components/ui/BackToTop/BackToTop";
 
@@ -13,24 +17,76 @@ interface IDirectives {
   type: string;
   entries: string[];
 }
+/*
+const D = [
+  {
+    type: "connect-src",
+    entries: [
+      "https://api.example.com",
+      "https://cdn.example.com",
+      "wss://socket.example.com",
+    ],
+  },
+];
 
+*/
 export const App: Component = () => {
-  let darkMode = true;
-
-  if (window.matchMedia) {
-    darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  }
-
-  globalStyle("body", {
-    backgroundColor: darkMode ? "#202127" : "#CCC",
-  });
-
   const [directives, setDirectives] = createSignal<IDirectives[]>([]);
   const [detailsOpen, setDetailsOpen] = createSignal(true);
-  const [isDark, setIsDark] = createSignal(darkMode);
+  const [isDark, setIsDark] = createSignal(true);
   const [address, setAddress] = createSignal("");
   const [status, setStatus] = createSignal("");
   const [filter, setFilter] = createSignal("");
+
+  const vars = createThemeContract({
+    color: {
+      background: null,
+    },
+  });
+
+  const lTheme = createTheme(vars, {
+    color: {
+      background: "#ffffff",
+    },
+  });
+  const dTheme = createTheme(vars, {
+    color: {
+      background: "#202127",
+    },
+  });
+
+  globalStyle("body", {
+    backgroundColor: vars.color.background,
+  });
+
+  createEffect(() => {
+    document.querySelector("body")?.classList.toggle(dTheme, isDark());
+    document.querySelector("body")?.classList.toggle(lTheme, !isDark());
+  });
+
+  createEffect(() => {
+    if (address()) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+  onMount(() => {
+    if (window) {
+      const darkModeMediaQuery = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      );
+
+      console.log(
+        "Dark mode media query supported",
+        darkModeMediaQuery.matches,
+      );
+      setIsDark(darkModeMediaQuery.matches);
+
+      darkModeMediaQuery.addEventListener("change", (event) => {
+        console.log("Dark mode preference changed:", event.matches);
+        setIsDark(event.matches);
+      });
+    }
+  });
 
   if (typeof chrome !== "undefined" && chrome.runtime) {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -44,15 +100,15 @@ export const App: Component = () => {
   }
   return (
     <main>
-      <Message theme={isDark() ? darkTheme : lightTheme} status={status} />
+      <Message isDark={isDark} status={status} />
       {Array.isArray(directives()) && directives().length > 0 && (
         <>
-          <U theme={isDark() ? darkTheme : lightTheme} address={address} />
+          <U isDark={isDark} address={address} />
           <Inputs
             filter={filter()}
             setFilter={setFilter}
             setDetailsOpen={setDetailsOpen}
-            theme={isDark() ? darkTheme : lightTheme}
+            isDark={isDark}
           />
           <For each={directives()} fallback={<div>loading...</div>}>
             {(directive, i) => (
@@ -61,7 +117,7 @@ export const App: Component = () => {
                 index={i()}
                 filter={filter}
                 detailsOpen={detailsOpen}
-                theme={isDark() ? darkTheme : lightTheme}
+                isDark={isDark}
               />
             )}
           </For>

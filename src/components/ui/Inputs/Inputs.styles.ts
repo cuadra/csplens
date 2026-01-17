@@ -45,7 +45,7 @@ const ClearButtonStyled = styled("button", {
     top: "50%",
     transform: "translateY(-50%)",
     background: "none",
-    color: "rgba(255, 255, 255, 0.5)",
+    color: themeContract.colors.color.primary,
     cursor: "pointer",
     outline: "none",
     border: "none",
