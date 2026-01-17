@@ -4,8 +4,10 @@ export const darkTheme = createTheme(themeContract, {
   colors: {
     color: {
       primary: "#FFF",
-      secondary: "#202127",
+      secondary: "#CCC",
       tertiary: "#4C33A6",
+      quatenary: "#CCC",
+      quinary: "#666",
     },
     background: {
       primary: "#2A2D40",
@@ -20,9 +22,9 @@ export const darkTheme = createTheme(themeContract, {
       secondary: "Georgia, serif",
     },
     sizes: {
-      small: "12px",
-      medium: "16px",
-      large: "18px",
+      small: "10px",
+      medium: "12px",
+      large: "13px",
       xlarge: "22px",
     },
     weights: {

@@ -3,7 +3,7 @@ import { themeContract } from "../../../styles/contracts/theme";
 const ItemsStyled = styled("ol", {
   base: {
     listStyle: "none",
-    padding: "0 0 20px",
+    padding: "0",
     margin: "0",
     display: "flex",
     flexDirection: "column",
@@ -14,8 +14,8 @@ const ItemsStyled = styled("ol", {
 const ItemStyled = styled("li", {
   base: {
     margin: "0",
-    padding: "15px 50px 15px",
-    color: "rgba(255, 255, 255, 0.5)",
+    padding: "15px 20px 15px",
+    color: themeContract.colors.color.quatenary,
     display: "flex",
     alignItems: "center",
     selectors: {
@@ -26,13 +26,16 @@ const ItemStyled = styled("li", {
       "&:hover": {
         backgroundColor: "rgba(255, 255, 255, 0.04)",
       },
+      "&:last-child": {
+        marginBottom: "10px",
+      },
     },
   },
 });
 const CountStyled = styled("span", {
   base: {
-    width: "30px",
-    height: "30px",
+    width: "25px",
+    height: "25px",
     backgroundColor: themeContract.colors.background.quatenary,
     borderRadius: "30px",
     display: "flex",
@@ -54,7 +57,7 @@ const SummaryStyled = styled("summary", {
   base: {
     display: "flex",
     justifyContent: "space-between",
-    padding: "20px 15px",
+    padding: "10px",
     color: themeContract.colors.color.primary,
     fontFamily: themeContract.fonts.families.primary,
     fontSize: themeContract.fonts.sizes.large,
@@ -76,7 +79,7 @@ const SummaryLabelStyled = styled("span", {
 const IconStyled = styled("span", {
   base: {
     marginRight: "10px",
-    color: "rgba(255, 255, 255, 0.1)",
+    color: themeContract.colors.color.quinary,
     display: "inline-block",
   },
 });

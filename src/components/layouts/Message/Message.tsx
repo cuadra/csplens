@@ -4,25 +4,27 @@ import { BiSolidError } from "solid-icons/bi";
 import { MessageStyled, H2Styled } from "./Message.styles";
 
 interface IMessageProps {
-  directives: any;
   theme: string;
+  status: () => string;
 }
 export const Message: Component<IMessageProps> = (props) => {
-  const { directives, theme } = props;
+  const { status, theme } = props;
   return (
     <>
-      {!Array.isArray(directives) && (
+      {status() === "not_found" && (
         <MessageStyled>
           <H2Styled class={theme}>
             <BiSolidError size={60} color={"rgba(255,255,255, 0.5)"} />
-            CSP headers not detected.
+            <br />
+            Content security policy not detected.
           </H2Styled>
         </MessageStyled>
       )}
-      {Array.isArray(directives) && directives.length === 0 && (
+      {status() === "" && (
         <MessageStyled>
           <H2Styled class={theme}>
             <TbRefresh size={60} color={"rgba(255,255,255, 0.5)"} />
+            <br />
             Load/Reload a website.
           </H2Styled>
         </MessageStyled>

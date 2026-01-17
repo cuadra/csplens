@@ -12,18 +12,24 @@ import {
 interface IInputs {
   filter: string;
   theme: string;
-  openDetails: () => void;
-  closeDetails: () => void;
+  setDetailsOpen: (value: boolean) => void;
   setFilter: (value: string) => void;
 }
 export const Inputs: Component<IInputs> = (props) => {
-  const { filter, setFilter, openDetails, closeDetails, theme } = props;
+  const { filter, setFilter, setDetailsOpen, theme } = props;
 
   let inputRef!: HTMLInputElement;
 
   const inputHandler = (e: Event) => {
     const target = e.target as HTMLInputElement;
     setFilter(target.value);
+  };
+  const openDetails = () => {
+    setDetailsOpen(false); //reset
+    setDetailsOpen(true);
+  };
+  const closeDetails = () => {
+    setDetailsOpen(false);
   };
   const resetHandler = (e: Event) => {
     e.preventDefault();
@@ -49,7 +55,7 @@ export const Inputs: Component<IInputs> = (props) => {
             ref={inputRef}
           />
           <ClearButtonStyled onClick={resetHandler}>
-            <AiOutlineClose size={30} />
+            <AiOutlineClose size={20} />
           </ClearButtonStyled>
         </FormLabelStyled>
       </FormStyled>

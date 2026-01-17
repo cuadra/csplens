@@ -5,6 +5,8 @@ export const themeContract = createThemeContract({
       primary: null,
       secondary: null,
       tertiary: null,
+      quatenary: null,
+      quinary: null,
     },
     background: {
       primary: null,

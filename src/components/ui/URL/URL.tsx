@@ -2,11 +2,11 @@ import { createSignal, createEffect, For, Component } from "solid-js";
 import { URLStyles } from "./URL.styles";
 
 interface IURL {
-  url: string;
+  address: () => string;
   theme: string;
 }
 
-export const URL: Component<IURL> = (props) => {
-  const { url, theme } = props;
-  return <URLStyles class={theme}>{url}</URLStyles>;
+export const U: Component<IURL> = (props) => {
+  const { address, theme } = props;
+  return <URLStyles class={theme}>{address()}</URLStyles>;
 };

@@ -6,12 +6,14 @@ export const lightTheme = createTheme(themeContract, {
       primary: "#5C3ABC",
       secondary: "#445EF2",
       tertiary: "#4C33A6",
+      quatenary: "#000000",
+      quinary: "#666",
     },
     background: {
-      primary: "#5C3ABC",
-      secondary: "#445EF2",
+      primary: "#FFF",
+      secondary: "#EFEFEF",
       tertiary: "#4C33A6",
-      quatenary: "#445EF2",
+      quatenary: "#CCC",
     },
   },
   fonts: {
@@ -20,10 +22,10 @@ export const lightTheme = createTheme(themeContract, {
       secondary: "Georgia, serif",
     },
     sizes: {
-      small: "12px",
-      medium: "16px",
-      large: "20px",
-      xlarge: "30px",
+      small: "10px",
+      medium: "12px",
+      large: "13px",
+      xlarge: "22px",
     },
     weights: {
       regular: "400",

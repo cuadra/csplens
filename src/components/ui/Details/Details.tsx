@@ -11,7 +11,6 @@ import {
 } from "./Details.styles";
 
 import { OcDotfill2 } from "solid-icons/oc";
-import { AiFillCaretDown } from "solid-icons/ai";
 
 export const Details: Component<IDetails> = (props) => {
   const { directive, index, filter, detailsOpen, theme } = props;
@@ -19,9 +18,6 @@ export const Details: Component<IDetails> = (props) => {
     <DetailsStyled class={theme} open={detailsOpen()}>
       <SummaryStyled>
         <SummaryLabelStyled>
-          <IconStyled>
-            <AiFillCaretDown />
-          </IconStyled>
           {index + 1}. {directive.type}
         </SummaryLabelStyled>
         <CountStyled>{directive.entries.length}</CountStyled>

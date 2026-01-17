@@ -18,7 +18,7 @@ const ButtonStyled = styled("button", {
     height: "100%",
     padding: "15px 20px",
     cursor: "pointer",
-    color: "rgba(255, 255, 255, 0.5)",
+    color: themeContract.colors.color.secondary,
     fontSize: themeContract.fonts.sizes.small,
     fontWeight: themeContract.fonts.weights.bold,
     textTransform: "uppercase",
@@ -41,7 +41,7 @@ const FormLabelStyled = styled("label", {
 const ClearButtonStyled = styled("button", {
   base: {
     position: "absolute",
-    right: "10px",
+    right: "8px",
     top: "50%",
     transform: "translateY(-50%)",
     background: "none",
@@ -54,7 +54,7 @@ const ClearButtonStyled = styled("button", {
 
 const InputStyled = styled("input", {
   base: {
-    padding: "15px 25px",
+    padding: "15px 50px 15px 25px",
     width: "100%",
     height: "100%",
     color: themeContract.colors.color.primary,

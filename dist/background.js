@@ -29,19 +29,26 @@ chrome.webRequest.onHeadersReceived.addListener(
         cspEntries.push(obj);
       });
 
-      //console.log("CSP for:", cspEntries);
       const cspData = {
         directives: cspEntries,
-        url: details.url,
+        address: details.url,
+        status: "ok",
       };
-      //cspCache[details.tabId] = cspData;
 
       chrome.runtime.sendMessage({
         type: "DATA_FROM_BACKGROUND",
         payload: cspData,
       });
     } else {
-      //delete cspCache[details.tabId];
+      const cspData = {
+        status: "not_found",
+        address: details.url,
+        directives: [],
+      };
+      chrome.runtime.sendMessage({
+        type: "DATA_FROM_BACKGROUND",
+        payload: cspData,
+      });
     }
     /*
      */
