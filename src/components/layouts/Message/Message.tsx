@@ -1,4 +1,4 @@
-import { createSignal, createEffect, For, Component } from "solid-js";
+import { Component } from "solid-js";
 import { TbRefresh } from "solid-icons/tb";
 import { BiSolidError } from "solid-icons/bi";
 import { MessageStyled, H2Styled } from "./Message.styles";
