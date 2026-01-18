@@ -9,6 +9,16 @@ const URLStyles = styled("div", {
     borderBottom: `1px solid rgba(255, 255, 255, 0.1)`,
     overflowWrap: "break-word",
     wordBreak: "break-all",
+    display: "flex",
+    justifyContent: "space-between",
   },
 });
-export { URLStyles };
+const Button = styled("button", {
+  base: {
+    color: themeContract.colors.color.quatenary,
+    background: "transparent",
+    border: "none",
+    cursor: "pointer",
+  },
+});
+export { URLStyles, Button };
