@@ -12,6 +12,7 @@ interface IDirectives {
   type: string;
   entries: string[];
 }
+/*
 const D = [
   {
     type: "connect-src",
@@ -22,7 +23,7 @@ const D = [
     ],
   },
 ];
-
+*/
 export const App: Component = () => {
   const [directives, setDirectives] = createSignal<IDirectives[]>([]);
   const [isDark, setIsDark] = createSignal(true);
@@ -39,9 +40,9 @@ export const App: Component = () => {
   const [column1Status, setColumn1Status] = createSignal(status());
   const [column2Status, setColumn2Status] = createSignal(status());
   const [column1Directives, setColumn1Directives] =
-    createSignal<IDirectives[]>(D);
+    createSignal<IDirectives[]>(directives());
   const [column2Directives, setColumn2Directives] =
-    createSignal<IDirectives[]>(D);
+    createSignal<IDirectives[]>(directives());
 
   const vars = createThemeContract({
     color: {
@@ -67,10 +68,6 @@ export const App: Component = () => {
   createEffect(() => {
     document.querySelector("body")?.classList.toggle(dTheme, isDark());
     document.querySelector("body")?.classList.toggle(lTheme, !isDark());
-  });
-
-  createEffect(() => {
-    console.log("Single Column:", singleColumn());
   });
 
   createEffect(() => {
