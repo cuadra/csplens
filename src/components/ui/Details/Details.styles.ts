@@ -38,7 +38,7 @@ const CountStyled = styled("span", {
   base: {
     width: "25px",
     height: "25px",
-    backgroundColor: themeContract.colors.background.quatenary,
+    backgroundColor: themeContract.colors.background.secondary,
     borderRadius: "30px",
     display: "flex",
     justifyContent: "center",
