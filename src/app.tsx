@@ -25,10 +25,10 @@ const D = [
 ];
 */
 export const App: Component = () => {
-  const [directives, setDirectives] = createSignal<IDirectives[]>([]);
+  const [directives, setDirectives] = createSignal<IDirectives[]>(D);
   const [isDark, setIsDark] = createSignal(true);
-  const [address, setAddress] = createSignal("");
-  const [status, setStatus] = createSignal("");
+  const [address, setAddress] = createSignal("skdfljsklfdjklj");
+  const [status, setStatus] = createSignal("ok");
   const [isLocked, setIsLocked] = createSignal(false);
   const [singleColumn, setSingleColumn] = createSignal(false);
 

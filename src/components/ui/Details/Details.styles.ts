@@ -14,14 +14,14 @@ const ItemsStyled = styled("ol", {
 const ItemStyled = styled("li", {
   base: {
     margin: "0",
-    padding: "15px 20px 15px",
+    padding: "15px 10px 15px 17px",
     color: themeContract.colors.color.quatenary,
     display: "flex",
     alignItems: "center",
     overflowWrap: "break-word",
     wordBreak: "break-all",
+    position: "relative",
     selectors: {
-      "&:nth-child(odd)": {},
       "&:nth-child(even)": {
         backgroundColor: "rgba(255, 255, 255, 0.02)",
       },
@@ -36,6 +36,7 @@ const ItemStyled = styled("li", {
 });
 const CountStyled = styled("span", {
   base: {
+    marginLeft: "10px",
     width: "25px",
     height: "25px",
     backgroundColor: themeContract.colors.background.secondary,
@@ -58,7 +59,7 @@ const DetailsStyled = styled("details", {
 const SummaryStyled = styled("summary", {
   base: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     padding: "10px",
     color: themeContract.colors.color.primary,
     fontFamily: themeContract.fonts.families.primary,
@@ -66,11 +67,13 @@ const SummaryStyled = styled("summary", {
     backgroundColor: themeContract.colors.background.primary,
     cursor: "pointer",
     borderBottom: `1px solid rgba(255, 255, 255, 0.1)`,
+    position: "relative",
   },
 });
 
 const SummaryLabelStyled = styled("span", {
   base: {
+    marginRight: "auto",
     fontWeight: "bold",
     paddingLeft: "10px",
     display: "flex",
