@@ -1,10 +1,10 @@
 import { createSignal, For, Component } from "solid-js";
 import { styled } from "@macaron-css/solid";
-import { Message } from "../Message/Message";
 import { Details } from "../../../components/ui/Details/Details";
 import { Inputs } from "../../../components/ui/Inputs/Inputs";
 import { U } from "../../../components/ui/URL/URL";
 
+import { Message } from "../Message/Message";
 interface ICSPLens {
   directives: () => any[];
   isDark: () => boolean;
@@ -27,7 +27,8 @@ export const CSPLens: Component<ICSPLens> = (props) => {
   const [detailsOpen, setDetailsOpen] = createSignal(true);
   return (
     <SectionStyled>
-      <Message isDark={isDark} status={status} />
+      <Message isDark={isDark} status={status} address={address} />
+
       {Array.isArray(directives()) && directives().length > 0 && (
         <>
           <U

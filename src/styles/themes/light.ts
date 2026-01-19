@@ -3,15 +3,15 @@ import { themeContract } from "../contracts/theme";
 export const lightTheme = createTheme(themeContract, {
   colors: {
     color: {
-      primary: "#2A2D40",
+      primary: "#555A75",
       secondary: "#202127",
       tertiary: "#4C33A6",
       quatenary: "#202127",
-      quinary: "#2A2D40",
+      quinary: "#555A75",
     },
     background: {
-      primary: "#B9BCC4",
-      secondary: "#EFEFEF",
+      primary: "#E1E4EB",
+      secondary: "#F4F5F7",
       tertiary: "#CCC",
       quatenary: "#FFF",
     },

@@ -2,7 +2,7 @@ import { styled } from "@macaron-css/solid";
 import { themeContract } from "../../../styles/contracts/theme";
 const MessageStyled = styled("div", {
   base: {
-    height: "80vh",
+    width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

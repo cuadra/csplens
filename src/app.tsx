@@ -7,12 +7,12 @@ import {
 
 import { CSPLens } from "./components/layouts/CSPLens/CSPLens";
 import { BackToTop } from "./components/ui/BackToTop/BackToTop";
+import { Reload } from "./components/ui/Reload/Reload";
 import { styled } from "@macaron-css/solid";
 interface IDirectives {
   type: string;
   entries: string[];
 }
-/*
 const D = [
   {
     type: "connect-src",
@@ -23,7 +23,6 @@ const D = [
     ],
   },
 ];
-*/
 export const App: Component = () => {
   const [directives, setDirectives] = createSignal<IDirectives[]>([]);
   const [isDark, setIsDark] = createSignal(true);
@@ -62,6 +61,8 @@ export const App: Component = () => {
   });
 
   globalStyle("body", {
+    margin: 0,
+    padding: 0,
     backgroundColor: vars.color.background,
   });
 
@@ -108,25 +109,29 @@ export const App: Component = () => {
   });
 
   if (typeof chrome !== "undefined" && chrome.runtime) {
-    chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      if (!isLocked()) {
-        if (request.type === "DATA_FROM_BACKGROUND") {
-          setDirectives(request.payload.directives);
-          setAddress(request.payload.address);
-          setStatus(request.payload.status);
-        }
+    const port = chrome.runtime.connect({ name: "CSP_LENS_PORT" });
+
+    port.onMessage.addListener((request) => {
+      if (request.type === "CSP_DATA_FROM_BACKGROUND") {
+        setDirectives(request.payload.directives);
+        setAddress(request.payload.address);
+        setStatus(request.payload.status);
       }
     });
+
+    port.postMessage({ type: "CSP_LENS_CONNECTED" });
   }
 
   const MainStyled = styled("main", {
     base: {
+      paddingBottom: "30px",
       gap: "20px",
       display: "flex",
     },
   });
   return (
     <>
+      <Reload isDark={isDark} />
       <MainStyled>
         <CSPLens
           isDark={isDark}
@@ -136,6 +141,7 @@ export const App: Component = () => {
           isLocked={column1IsLocked}
           setIsLocked={setColumn1IsLocked}
         />
+
         {!singleColumn() && (
           <CSPLens
             isDark={isDark}
@@ -147,10 +153,7 @@ export const App: Component = () => {
           />
         )}
       </MainStyled>
-
-      {status() !== "not_found" && status() !== "" && (
-        <BackToTop isDark={isDark} />
-      )}
+      {(column1Status() || column2Status()) && <BackToTop isDark={isDark} />}
     </>
   );
 };

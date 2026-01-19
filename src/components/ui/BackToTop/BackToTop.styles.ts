@@ -15,7 +15,7 @@ const ButtonStyled = styled("button", {
     position: "fixed",
     borderRadius: "4px",
     bottom: "0",
-    right: "15px",
+    right: "5px",
     backgroundColor: themeContract.colors.background.tertiary,
     cursor: "pointer",
   },

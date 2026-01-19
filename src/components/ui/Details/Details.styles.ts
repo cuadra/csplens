@@ -14,7 +14,7 @@ const ItemsStyled = styled("ol", {
 const ItemStyled = styled("li", {
   base: {
     margin: "0",
-    padding: "15px 10px 15px 17px",
+    padding: "15px 45px 15px 17px",
     color: themeContract.colors.color.quatenary,
     display: "flex",
     alignItems: "center",

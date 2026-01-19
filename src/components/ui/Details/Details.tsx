@@ -11,7 +11,6 @@ import {
 } from "./Details.styles";
 
 import { OcDotfill2 } from "solid-icons/oc";
-import { IoCopy } from "solid-icons/io";
 import { darkTheme } from "../../../styles/themes/dark";
 import { lightTheme } from "../../../styles/themes/light";
 import { CopyButton } from "../CopyButton/CopyButton";
