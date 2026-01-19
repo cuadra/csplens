@@ -8,6 +8,8 @@ import {
 import { CSPLens } from "./components/layouts/CSPLens/CSPLens";
 import { BackToTop } from "./components/ui/BackToTop/BackToTop";
 import { Reload } from "./components/ui/Reload/Reload";
+import { Support } from "./components/layouts/Support/Support";
+
 import { styled } from "@macaron-css/solid";
 interface IDirectives {
   type: string;
@@ -27,7 +29,7 @@ export const App: Component = () => {
   const [directives, setDirectives] = createSignal<IDirectives[]>([]);
   const [isDark, setIsDark] = createSignal(true);
   const [address, setAddress] = createSignal("");
-  const [status, setStatus] = createSignal("");
+  const [status, setStatus] = createSignal("default");
   const [isLocked, setIsLocked] = createSignal(false);
   const [singleColumn, setSingleColumn] = createSignal(false);
 
@@ -153,7 +155,10 @@ export const App: Component = () => {
           />
         )}
       </MainStyled>
-      {(column1Status() || column2Status()) && <BackToTop isDark={isDark} />}
+      <Support isDark={isDark} status={status} />
+      {(column1Status() === "ok" || column2Status() === "ok") && (
+        <BackToTop isDark={isDark} />
+      )}
     </>
   );
 };

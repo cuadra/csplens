@@ -12,7 +12,6 @@ interface IReloadProps {
 
 const DivStyled = styled("div", {
   base: {
-    marginBottom: "15px",
     padding: "10px",
     width: "100%",
     color: themeContract.colors.color.primary,

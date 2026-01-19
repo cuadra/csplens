@@ -3,10 +3,8 @@ let panelPort = null;
 const sendDataToSidePanel = (data) => {
   cspCache = data;
   if (!panelPort) {
-    console.log("Caching CSP data as side panel is not connected.");
     return;
   }
-  console.log("Sending CSP data to side panel:", data);
   panelPort.postMessage({
     type: "CSP_DATA_FROM_BACKGROUND",
     payload: data,
@@ -18,7 +16,6 @@ chrome.runtime.onConnect.addListener((port) => {
     return;
   }
 
-  console.log("Side panel connected.");
   panelPort = port;
 
   // Send cached data if available
@@ -28,7 +25,6 @@ chrome.runtime.onConnect.addListener((port) => {
   }
 
   port.onDisconnect.addListener(() => {
-    console.log("Side panel disconnected.");
     if (panelPort === port) {
       panelPort = null;
     }
@@ -79,40 +75,11 @@ chrome.webRequest.onHeadersReceived.addListener(
       };
       sendDataToSidePanel(cspData);
     }
-
-    console.log("CSP data processed for URL:", details.url);
   },
   { urls: ["<all_urls>"] },
   ["responseHeaders"],
 );
 
-/*
-  //console.log("///////////////");
-  if (message.action === "contentScriptLoaded") {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        action: "dataFromBackground",
-        data: "Hello from background!",
-      });
-    });
-  } else if (message.type === "GET_CURRENT_TAB_CSP") {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs.length === 0) {
-        sendResponse({ payload: null });
-        return;
-      }
-      const tabId = tabs[0].id;
-      const data = cspCache[tabId];
-      sendResponse({ payload: data });
-    });
-    return true; // Keep channel open for async response
-  }
-});
-
-chrome.tabs.onRemoved.addListener((tabId) => {
-  delete cspCache[tabId];
-});
-*/
 chrome.sidePanel
   .setPanelBehavior({ openPanelOnActionClick: true })
   .catch((error) => console.error(error));
