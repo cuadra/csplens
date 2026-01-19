@@ -1,4 +1,4 @@
-import { createSignal, createEffect, For, Component, onMount } from "solid-js";
+import { Component } from "solid-js";
 import { IoCopy } from "solid-icons/io";
 import { styled } from "@macaron-css/solid";
 
@@ -13,8 +13,7 @@ export const CopyButton: Component<{ text: string; isDark: () => boolean }> = (
 
   const ButtonStyled = styled("button", {
     base: {
-      marginTop: "-12px",
-      fontSize: themeContract.fonts.sizes.xlarge,
+      marginTop: "-11px",
       color: themeContract.colors.color.quinary,
       cursor: "pointer",
       background: "transparent",
@@ -22,6 +21,11 @@ export const CopyButton: Component<{ text: string; isDark: () => boolean }> = (
       position: "absolute",
       top: "50%",
       right: "8px",
+      selectors: {
+        "&:active": {
+          opacity: 0.6,
+        },
+      },
     },
   });
   const copyHandler = async (e: MouseEvent) => {
@@ -37,7 +41,7 @@ export const CopyButton: Component<{ text: string; isDark: () => boolean }> = (
       onClick={copyHandler}
       title="Copy to clipboard"
     >
-      <IoCopy />
+      <IoCopy size={18} />
     </ButtonStyled>
   );
 };

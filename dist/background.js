@@ -1,7 +1,42 @@
-//const cspCache = {};
+let cspCache = null;
+let panelPort = null;
+const sendDataToSidePanel = (data) => {
+  cspCache = data;
+  if (!panelPort) {
+    console.log("Caching CSP data as side panel is not connected.");
+    return;
+  }
+  console.log("Sending CSP data to side panel:", data);
+  panelPort.postMessage({
+    type: "CSP_DATA_FROM_BACKGROUND",
+    payload: data,
+  });
+};
+
+chrome.runtime.onConnect.addListener((port) => {
+  if (port.name !== "CSP_LENS_PORT") {
+    return;
+  }
+
+  console.log("Side panel connected.");
+  panelPort = port;
+
+  // Send cached data if available
+  if (cspCache) {
+    sendDataToSidePanel(cspCache);
+    cspCache = null;
+  }
+
+  port.onDisconnect.addListener(() => {
+    console.log("Side panel disconnected.");
+    if (panelPort === port) {
+      panelPort = null;
+    }
+  });
+});
 
 chrome.webRequest.onHeadersReceived.addListener(
-  (details) => {
+  async (details) => {
     const cspEntries = [];
     if (details.type !== "main_frame") {
       return;
@@ -32,33 +67,26 @@ chrome.webRequest.onHeadersReceived.addListener(
       const cspData = {
         directives: cspEntries,
         address: details.url,
-        status: "ok",
+        status: cspEntries.length >= 0 ? "ok" : "empty",
       };
 
-      chrome.runtime.sendMessage({
-        type: "DATA_FROM_BACKGROUND",
-        payload: cspData,
-      });
+      sendDataToSidePanel(cspData);
     } else {
       const cspData = {
         status: "not_found",
         address: details.url,
         directives: [],
       };
-      chrome.runtime.sendMessage({
-        type: "DATA_FROM_BACKGROUND",
-        payload: cspData,
-      });
+      sendDataToSidePanel(cspData);
     }
-    /*
-     */
+
+    console.log("CSP data processed for URL:", details.url);
   },
   { urls: ["<all_urls>"] },
   ["responseHeaders"],
 );
 
 /*
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   //console.log("///////////////");
   if (message.action === "contentScriptLoaded") {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {

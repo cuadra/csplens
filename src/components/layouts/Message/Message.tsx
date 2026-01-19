@@ -1,5 +1,5 @@
 import { Component } from "solid-js";
-import { TbRefresh } from "solid-icons/tb";
+import { TiRefresh } from "solid-icons/ti";
 import { BiSolidError } from "solid-icons/bi";
 import { MessageStyled, H2Styled } from "./Message.styles";
 
@@ -9,25 +9,36 @@ import { lightTheme } from "../../../styles/themes/light";
 interface IMessageProps {
   isDark: () => boolean;
   status: () => string;
+  address: () => string;
 }
 export const Message: Component<IMessageProps> = (props) => {
-  const { status, isDark } = props;
+  const { status, isDark, address } = props;
   return (
     <>
       {status() === "not_found" && (
-        <MessageStyled>
+        <MessageStyled class={isDark() ? darkTheme : lightTheme}>
           <H2Styled class={isDark() ? darkTheme : lightTheme}>
             <BiSolidError size={60} />
+            CSP not detected.
             <br />
-            Content security policy not detected.
+            <small>({address()})</small>
           </H2Styled>
         </MessageStyled>
       )}
-      {status() === "" && (
-        <MessageStyled>
+      {status() === "empty" && (
+        <MessageStyled class={isDark() ? darkTheme : lightTheme}>
           <H2Styled class={isDark() ? darkTheme : lightTheme}>
-            <TbRefresh size={60} />
+            <BiSolidError size={60} />
+            CSP detected but no directives found.
             <br />
+            <small>({address()})</small>
+          </H2Styled>
+        </MessageStyled>
+      )}
+      {status() === "default" && (
+        <MessageStyled class={isDark() ? darkTheme : lightTheme}>
+          <H2Styled class={isDark() ? darkTheme : lightTheme}>
+            <TiRefresh size={80} />
             Load/Reload a website.
           </H2Styled>
         </MessageStyled>
