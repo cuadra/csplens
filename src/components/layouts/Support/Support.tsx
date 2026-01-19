@@ -16,6 +16,7 @@ export const Support: Component<ISupportProps> = (props) => {
   return (
     <NavStyled class={isDark() ? darkTheme : lightTheme}>
       <Anchor
+        target="_blank"
         class={isDark() ? darkTheme : lightTheme}
         href="https://github.com/cuadra/csplens"
         title="Visit Github Repository"
