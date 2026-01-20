@@ -1,19 +1,31 @@
 # CSP Lens
-<img width="1400" height="560" alt="marquee" src="https://github.com/user-attachments/assets/a8883c55-a697-4f87-8517-bf089865df68" />
+<img width="1400" height="560" alt="marquee" src="https://github.com/user-attachments/assets/272bb009-dccc-46d5-9b5c-ade771b3c158" />
 
-![csplensdarklight](https://github.com/user-attachments/assets/d741c163-5d42-400d-8842-2f879b0e566f)
+
+![csplensdarklight](https://github.com/user-attachments/assets/b5db1d7e-f646-4e8d-8e68-e2373db56a4d)
 
 ## Installation
-```npm i```
-## Build
-```npm run build```
-## Extension prep
-Run these commands (or follow the steps in parenthesis) to move the build files into the folder the extension will use.
+### Download
+- Clone the repo or download the Release.
 
-From the root of the folder:
-1. ```rm -rf dist/assets``` (deletes the `dist/assets/` folder)
-2. ```mv temp/index.html dist/``` (moves the `temp/index.html` file into `dist/`)
-3. ```mv temp/assets/ dist/``` (moves the `temp/assets/` folder into `dist/`)
-## Chrome Installation
+### Chrome Installation
 1. Open chrome://extensions and enable "developer mode"
-2. Click on "load unpacked" and select the `dist` folder
+2. Click on "load unpacked" and select the `dist` folder inside what you downloaded.
+
+
+## Build
+If you want to customize and build it yourself:
+```
+npm i
+npm run build
+```
+### Prepare the extension folder
+From the root of the folder:
+```
+rm -rf dist/assets
+mv temp/index.html dist/
+mv temp/assets/ dist/
+```
+
+(Translation: delete the old assets, move the fresh ones where the extension expects them.)
+
