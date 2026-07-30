@@ -1,4 +1,11 @@
-import { createSignal, createEffect, For, Component, onMount } from "solid-js";
+import {
+  createSignal,
+  createEffect,
+  For,
+  Component,
+  onMount,
+  batch,
+} from "solid-js";
 import {
   globalStyle,
   createThemeContract,
@@ -15,16 +22,6 @@ interface IDirectives {
   type: string;
   entries: string[];
 }
-const D = [
-  {
-    type: "connect-src",
-    entries: [
-      "https://api.example.com",
-      "https://cdn.example.com",
-      "wss://socket.example.com",
-    ],
-  },
-];
 export const App: Component = () => {
   const [directives, setDirectives] = createSignal<IDirectives[]>([]);
   const [isDark, setIsDark] = createSignal(true);
@@ -80,15 +77,32 @@ export const App: Component = () => {
   });
 
   createEffect(() => {
-    if (!column1IsLocked()) {
-      setColumn1Address(address());
-      setColumn1Directives(directives());
-      setColumn1Status(status());
+    const newAddress = address();
+    const newDirectives = directives();
+    const newStatus = status();
+
+    if (singleColumn()) {
+      // Only one column is visible, so it always tracks the live page.
+      if (!column1IsLocked()) {
+        setColumn1Address(newAddress);
+        setColumn1Directives(newDirectives);
+        setColumn1Status(newStatus);
+      }
+      return;
     }
-    if (!column2IsLocked()) {
-      setColumn2Address(address());
-      setColumn2Directives(directives());
-      setColumn2Status(status());
+
+    // Two columns are visible: stagger them so column2 always tracks the
+    // live page, and column1 keeps whatever column2 held before this page
+    // loaded — i.e. column1 shows the previous page, column2 the current one.
+    if (!column2IsLocked() && newAddress !== column2Address()) {
+      if (!column1IsLocked()) {
+        setColumn1Address(column2Address());
+        setColumn1Directives(column2Directives());
+        setColumn1Status(column2Status());
+      }
+      setColumn2Address(newAddress);
+      setColumn2Directives(newDirectives);
+      setColumn2Status(newStatus);
     }
   });
   onMount(() => {
@@ -115,9 +129,11 @@ export const App: Component = () => {
 
     port.onMessage.addListener((request) => {
       if (request.type === "CSP_DATA_FROM_BACKGROUND") {
-        setDirectives(request.payload.directives);
-        setAddress(request.payload.address);
-        setStatus(request.payload.status);
+        batch(() => {
+          setDirectives(request.payload.directives);
+          setAddress(request.payload.address);
+          setStatus(request.payload.status);
+        });
       }
     });
 
